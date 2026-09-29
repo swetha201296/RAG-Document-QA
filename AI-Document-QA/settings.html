@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Settings - InsightRAG</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+<style>
+
+body.light-theme {
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+body.light-theme .sidebar {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+}
+
+body.light-theme .logo h2 {
+    color: #1f2937;
+}
+
+body.light-theme .nav-item {
+    color: #4b5563;
+}
+
+body.light-theme .nav-item.active {
+    background: #eeeafe;
+    color: #6c63ff;
+}
+
+body.light-theme .settings-card {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+body.light-theme .settings-section {
+    border-color: #e5e7eb;
+}
+
+body.light-theme .settings-section h2 {
+    color: #1f2937;
+}
+
+body.light-theme .settings-section p {
+    color: #6b7280;
+}
+
+body.light-theme .setting-title {
+    color: #374151;
+}
+
+body.light-theme .setting-description {
+    color: #6b7280;
+}
+
+</style>
+    <style>
+
+        .settings-card {
+            margin-top: 30px;
+            max-width: 750px;
+            background: #171b24;
+            border: 1px solid #303642;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .settings-section {
+            padding: 24px;
+            border-bottom: 1px solid #303642;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .settings-section h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .settings-section p {
+            color: #8d97a8;
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 22px;
+        }
+
+        .setting-title {
+            color: #e6e9ef;
+            font-size: 15px;
+        }
+
+        .setting-description {
+            color: #747e8f;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: #303642;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 3px;
+            top: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle input:checked + .slider {
+            background: #6c63ff;
+        }
+
+        .toggle input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .danger-btn {
+            margin-top: 20px;
+            padding: 10px 16px;
+            border-radius: 9px;
+            border: 1px solid #713b45;
+            background: #2a1820;
+            color: #ff7b8b;
+            cursor: pointer;
+        }
+
+        .save-message {
+            color: #20c997;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                R
+            </div>
+
+            <h2>InsightRAG</h2>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a class="nav-item"
+               href="dashboard.html">
+                ⌂ <span>Dashboard</span>
+            </a>
+
+            <a class="nav-item"
+               href="documents.html">
+                ▣ <span>Documents</span>
+            </a>
+
+            <a class="nav-item"
+               href="chat.html">
+                ○ <span>Chat</span>
+            </a>
+
+            <a class="nav-item"
+               href="history.html">
+                ◷ <span>History</span>
+            </a>
+
+            <a class="nav-item"
+               href="analytical.html">
+                ◇ <span>Analytical</span>
+            </a>
+
+            <a class="nav-item"
+               href="profile.html">
+                ● <span>Profile</span>
+            </a>
+
+            <a class="nav-item active"
+               href="settings.html">
+                ⚙ <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="profile">
+
+            <div class="profile-icon">
+                V
+            </div>
+
+            <div>
+
+                <strong>Vijay</strong>
+
+                <small>
+                    vijay@insightrag.ai
+                </small>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <h1>Settings</h1>
+
+        <p style="color:#8d97a8; margin-top:8px;">
+            Manage your InsightRAG preferences.
+        </p>
+
+
+        <div class="settings-card">
+
+
+            <!-- APPEARANCE -->
+
+            <div class="settings-section">
+
+                <h2>Appearance</h2>
+
+                <p>
+                    Customize how InsightRAG looks.
+                </p>
+
+
+                <div class="setting-row">
+
+                    <div>
+
+                        <div class="setting-title">
+                            Dark Mode
+                        </div>
+
+                        <div class="setting-description">
+                            Use the dark dashboard theme.
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="darkMode"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div class="settings-section">
+
+                <h2>Notifications</h2>
+
+                <p>
+                    Control InsightRAG notifications.
+                </p>
+
+
+                <div class="setting-row">
+
+                    <div>
+
+                        <div class="setting-title">
+                            Notifications
+                        </div>
+
+                        <div class="setting-description">
+                            Receive notifications when documents finish processing.
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="notifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHAT -->
+
+            <div class="settings-section">
+
+                <h2>Chat</h2>
+
+                <p>
+                    Manage your question history.
+                </p>
+
+
+                <div class="setting-row">
+
+                    <div>
+
+                        <div class="setting-title">
+                            Save Chat History
+                        </div>
+
+                        <div class="setting-description">
+                            Save questions for the History and Analytics pages.
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="saveHistory"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <button
+                    class="danger-btn"
+                    onclick="clearHistory()">
+
+                    Clear Chat History
+
+                </button>
+
+            </div>
+
+
+            <!-- DOCUMENTS -->
+
+            <div class="settings-section">
+
+                <h2>Documents</h2>
+
+                <p>
+                    Manage document processing preferences.
+                </p>
+
+
+                <div class="setting-row">
+
+                    <div>
+
+                        <div class="setting-title">
+                            Auto Save Documents
+                        </div>
+
+                        <div class="setting-description">
+                            Keep uploaded document information in your browser.
+                        </div>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="autoSave"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="upload-btn"
+            style="margin-top:25px;"
+            onclick="saveSettings()">
+
+            Save Settings
+
+        </button>
+
+
+        <div
+            id="saveMessage"
+            class="save-message">
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+/* =================================
+   LOAD SAVED SETTINGS
+================================= */
+
+
+document.getElementById(
+    "darkMode"
+).checked =
+    localStorage.getItem(
+        "darkMode"
+    ) !== "false";
+
+
+document.getElementById(
+    "notifications"
+).checked =
+    localStorage.getItem(
+        "notifications"
+    ) !== "false";
+
+
+document.getElementById(
+    "saveHistory"
+).checked =
+    localStorage.getItem(
+        "saveHistory"
+    ) !== "false";
+
+
+document.getElementById(
+    "autoSave"
+).checked =
+    localStorage.getItem(
+        "autoSave"
+    ) !== "false";
+
+
+/* =================================
+   SAVE SETTINGS
+================================= */
+function applyTheme() {
+
+    const darkMode =
+        localStorage.getItem("darkMode") !== "false";
+
+    if (darkMode) {
+        document.body.classList.remove("light-theme");
+    } else {
+        document.body.classList.add("light-theme");
+    }
+}
+
+applyTheme();
+
+function saveSettings() {
+
+    const darkMode =
+        document.getElementById("darkMode").checked;
+
+    const notifications =
+        document.getElementById("notifications").checked;
+
+    const saveHistory =
+        document.getElementById("saveHistory").checked;
+
+    const autoSave =
+        document.getElementById("autoSave").checked;
+
+
+    localStorage.setItem(
+        "darkMode",
+        darkMode
+    );
+
+    localStorage.setItem(
+        "notifications",
+        notifications
+    );
+
+    localStorage.setItem(
+        "saveHistory",
+        saveHistory
+    );
+
+    localStorage.setItem(
+        "autoSave",
+        autoSave
+    );
+
+
+    if (darkMode) {
+
+        document.body.classList.remove(
+            "light-theme"
+        );
+
+    } else {
+
+        document.body.classList.add(
+            "light-theme"
+        );
+
+    }
+
+
+    document.getElementById(
+        "saveMessage"
+    ).innerText =
+        "Settings saved successfully!";
+
+}
+
+
+/* =================================
+   CLEAR CHAT HISTORY
+================================= */
+
+
+function clearHistory() {
+
+    const confirmClear =
+        confirm(
+            "Are you sure you want to clear your chat history?"
+        );
+
+
+    if (!confirmClear) {
+        return;
+    }
+
+
+    localStorage.removeItem(
+        "askedQuestions"
+    );
+
+
+    localStorage.removeItem(
+        "analyticsData"
+    );
+
+
+    document.getElementById(
+        "saveMessage"
+    ).innerText =
+        "Chat history cleared successfully!";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

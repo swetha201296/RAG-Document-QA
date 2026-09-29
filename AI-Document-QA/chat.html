@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chat - InsightRAG</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">R</div>
+                <h2>InsightRAG</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a class="nav-item" href="dashboard.html">
+                    ⌂ <span>Dashboard</span>
+                </a>
+
+                <a class="nav-item">
+                    ▣ <span>Documents</span>
+                </a>
+
+                <a class="nav-item active">
+                    ○ <span>Chat</span>
+                </a>
+
+                <a class="nav-item" href="./history.html">◷ <span>History</span></a>
+
+                <a class="nav-item">
+                    ◇ <span>Analytical</span>
+                </a>
+
+                <a class="nav-item">
+                    ● <span>Profile</span>
+                </a>
+
+                <a class="nav-item">
+                    ⚙ <span>Settings</span>
+                </a>
+
+            </nav>
+
+            <div class="profile">
+
+                <div class="profile-icon">V</div>
+
+                <div>
+                    <strong>Vijay</strong>
+                    <small>vijay@insightrag.ai</small>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+    <h1>Ask a Question</h1>
+
+    <p style="color:#8d97a8; margin-top:8px;">
+        Ask questions about your uploaded document.
+    </p>
+
+    <div style="
+        margin-top:30px;
+        background:#171b24;
+        border:1px solid #2c3441;
+        border-radius:13px;
+        padding:25px;
+    ">
+
+        <h3 style="margin-bottom:15px;">
+            Your Question
+        </h3>
+
+        <textarea
+            id="question"
+            placeholder="Ask something about your document..."
+            style="
+                width:100%;
+                height:120px;
+                padding:15px;
+                background:#0b0f18;
+                border:1px solid #353d4d;
+                border-radius:8px;
+                color:white;
+                resize:none;
+                outline:none;
+                font-size:14px;
+            "
+        ></textarea>
+
+        <button
+            onclick="askQuestion()"
+            style="
+                margin-top:15px;
+                padding:12px 22px;
+                border:none;
+                border-radius:8px;
+                background:#6c63ff;
+                color:white;
+                font-weight:bold;
+                cursor:pointer;
+            "
+        >
+            Ask Question
+        </button>
+
+        <div
+            id="answer"
+            style="
+                margin-top:25px;
+                padding:18px;
+                background:#0b0f18;
+                border-radius:8px;
+                color:#d7dbe3;
+                min-height:60px;
+            "
+        >
+            Answer will appear here...
+        </div>
+
+    </div>
+
+</main>
+
+    </div>
+<script src="script.js"></script>
+</body>
+
+</html>

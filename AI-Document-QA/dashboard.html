@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>InsightRAG Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar"> 
+ 
+        <div class="logo"> 
+            <div class="logo-icon">R</div> 
+            <h2>InsightRAG</h2> 
+        </div> 
+ 
+        <nav class="sidebar-nav"> 
+ 
+            <a class="nav-item active" href="dashboard.html"> 
+                ⌂ <span>Dashboard</span> 
+            </a> 
+ 
+            <a class="nav-item" href="documents.html"> 
+                ▣ <span>Documents</span> 
+            </a> 
+ 
+            <a class="nav-item" href="chat.html"> 
+                ○ <span>Chat</span> 
+            </a> 
+ 
+            <a class="nav-item" href="history.html"> 
+                ◷ <span>History</span> 
+            </a> 
+ 
+            <a class="nav-item" href="analytical.html"> 
+                ◇ <span>Analytical</span> 
+            </a> 
+ 
+            <a class="nav-item" href="profile.html"> 
+                ● <span>Profile</span> 
+            </a> 
+ 
+            <a class="nav-item" href="settings.html"> 
+                ⚙ <span>Settings</span> 
+            </a> 
+ 
+        </nav> 
+ 
+        <!-- Profile --> 
+ 
+        <div class="profile"> 
+ 
+            <div class="profile-icon"> 
+                V 
+            </div> 
+ 
+            <div> 
+                <strong>Vijay</strong> 
+                <small>vijay@insightrag.ai</small> 
+                <div class="profile-menu" id="profileMenu"> 
+    <div class="profile-menu-header"> 
+        <strong id="menuName">Vijay</strong> 
+        <small id="menuEmail">vijay@insightrag.ai</small> 
+    </div> 
+ 
+    <a href="profile.html" class="profile-menu-item"> 
+        👤 Profile 
+    </a> 
+ 
+    <a href="settings.html" class="profile-menu-item"> 
+        ⚙️ Settings 
+    </a> 
+ 
+    <div class="profile-menu-item logout" onclick="logoutUser()"> 
+        🚪 Logout 
+    </div> 
+</div> 
+            </div> 
+ 
+        </div> 
+ 
+    </aside> 
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1 id="dashboardGreeting">
+                    Good morning, Vijay ☀️
+                </h1>
+
+                <p id="dashboardDate">
+                    Loading date...
+                </p>
+
+            </div>
+
+
+            <!-- Top Upload Button -->
+
+            <button
+                type="button"
+                class="upload-btn"
+                onclick="document.getElementById('pdfFile').click();"
+            >
+                + &nbsp; Upload Document
+            </button>
+
+            <input
+                type="file"
+                id="pdfFile"
+                accept=".pdf,.docx,.pptx,.txt,.ppt,.doc,application/pdf,text/plain"
+                multiple
+                style="display:none;"
+            >
+
+        </header>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <p>Total Documents</p>
+
+                <h2 id="dashboardDocumentCount">
+                    0
+                </h2>
+
+                <span>Documents in your library</span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <p>Questions Asked</p>
+
+                <h2 id="dashboardQuestionCount">
+                    0
+                </h2>
+
+                <span>Your document questions</span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <p>Successful Answers</p>
+
+                <h2 id="dashboardSuccessRate">
+                    0%
+                </h2>
+
+                <span>Answer success rate</span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <p>Avg Response Time</p>
+
+                <h2 id="dashboardAverageTime">
+                    0ms
+                </h2>
+
+                <span>Average answer time</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-actions">
+
+
+            <!-- UPLOAD DOCUMENT -->
+
+            <div
+                class="action-card upload-action-card"
+                onclick="document.getElementById('pdfFile').click();"
+                style="cursor:pointer;"
+            >
+
+                <div class="action-icon upload-icon">
+                    ↑
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Upload Documents
+                    </h3>
+
+                    <p>
+                        Add PDF, DOCX, PPTX or TXT files
+                        to your InsightRAG library.
+                    </p>
+
+                    <span class="action-link">
+                        Choose file →
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ASK QUESTION -->
+
+            <div
+                class="action-card"
+                onclick="window.location.href='chat.html';"
+                style="cursor:pointer;"
+            >
+
+                <div class="action-icon">
+                    ?
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Ask a Question
+                    </h3>
+
+                    <p>
+                        Ask questions and get answers
+                        from your uploaded documents.
+                    </p>
+
+                    <span class="action-link">
+                        Start chatting →
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- VIEW LIBRARY -->
+
+            <div
+                class="action-card"
+                onclick="window.location.href='documents.html';"
+                style="cursor:pointer;"
+            >
+
+                <div class="action-icon">
+                    ▣
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        View Library
+                    </h3>
+
+                    <p>
+                        Browse, open and manage
+                        all your uploaded documents.
+                    </p>
+
+                    <span class="action-link">
+                        Open library →
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECENT DOCUMENTS ================= -->
+
+        <section class="documents-card">
+
+            <div class="documents-header">
+
+                <div>
+                    <h2>
+                        Recent Documents
+                    </h2>
+
+                    <p style="margin-top:5px; opacity:.65;">
+                        Your recently uploaded files
+                    </p>
+                </div>
+
+                <a href="documents.html">
+                    View all →
+                </a>
+
+            </div>
+
+
+            <!-- Dynamic documents are loaded by script.js -->
+
+            <div id="dashboardRecentDocuments">
+
+                <div class="document-row">
+
+                    <div class="file-icon pdf">
+                        DOC
+                    </div>
+
+                    <div class="document-info">
+
+                        <strong>
+                            No documents uploaded yet
+                        </strong>
+
+                        <span>
+                            Upload a document to see it here
+                        </span>
+
+                    </div>
+
+                    <span class="status ready">
+                        —
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- ================= SCRIPT ================= -->
+
+<script src="script.js"></script>
+
+
+<!-- ================= DASHBOARD TIME ================= -->
+
+<script>
+
+function updateDashboardDateTime() {
+
+    const now = new Date();
+
+    const hour = now.getHours();
+
+    let greeting = "";
+    let icon = "";
+
+    if (hour >= 5 && hour < 12) {
+
+        greeting = "Good morning";
+        icon = "☀️";
+
+    } else if (hour >= 12 && hour < 17) {
+
+        greeting = "Good afternoon";
+        icon = "🌤️";
+
+    } else if (hour >= 17 && hour < 21) {
+
+        greeting = "Good evening";
+        icon = "🌆";
+
+    } else {
+
+        greeting = "Good night";
+        icon = "🌙";
+
+    }
+
+
+    document.getElementById("dashboardGreeting").innerText =
+        greeting + ", Vijay " + icon;
+
+
+    const dateText = now.toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }
+    );
+
+
+    document.getElementById("dashboardDate").innerText =
+        dateText;
+
+}
+
+
+/* Update immediately */
+
+updateDashboardDateTime();
+
+
+/* Keep time updated */
+
+setInterval(
+    updateDashboardDateTime,
+    60000
+);
+
+</script>
+
+
+</body>
+</html>

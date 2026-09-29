@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Profile - InsightRAG</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <style>
+
+        .profile-page {
+            max-width: 1000px;
+        }
+
+        /* ================= PROFILE HERO ================= */
+
+        .profile-hero {
+            margin-top: 30px;
+            background: #171b24;
+            border: 1px solid #303642;
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        /* ================= PROFILE PHOTO ================= */
+
+        .profile-photo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .big-avatar {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            border-radius: 50%;
+            background: #6c63ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            font-weight: 700;
+            color: white;
+            overflow: hidden;
+            border: 3px solid #303642;
+        }
+
+        .big-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .change-photo-btn {
+            border: 1px solid #303642;
+            background: #20242d;
+            color: white;
+            padding: 7px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .change-photo-btn:hover {
+            background: #6c63ff;
+            border-color: #6c63ff;
+        }
+
+        .remove-photo-btn {
+            border: none;
+            background: transparent;
+            color: #8d97a8;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .remove-photo-btn:hover {
+            color: #ff6b6b;
+        }
+
+        /* ================= SIDEBAR PHOTO ================= */
+
+        .profile-icon {
+            width: 42px !important;
+            height: 42px !important;
+            min-width: 42px;
+            border-radius: 50% !important;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ================= PROFILE INFO ================= */
+
+        .profile-main-info h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .profile-main-info p {
+            color: #8d97a8;
+            margin-top: 7px;
+        }
+
+        .account-badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #123c32;
+            color: #20c997;
+            font-size: 12px;
+        }
+
+        /* ================= GRID ================= */
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .profile-card {
+            background: #171b24;
+            border: 1px solid #303642;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .profile-card h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .profile-card p {
+            color: #8d97a8;
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        /* ================= FIELDS ================= */
+
+        .profile-field {
+            margin-top: 20px;
+        }
+
+        .profile-field label {
+            display: block;
+            color: #8d97a8;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .profile-field input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* ================= STATS ================= */
+
+        .account-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .account-stat {
+            background: #20242d;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .account-stat span {
+            color: #8d97a8;
+            font-size: 12px;
+        }
+
+        .account-stat strong {
+            display: block;
+            font-size: 25px;
+            margin-top: 8px;
+        }
+
+        .profile-message {
+            color: #20c997;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= THEME ================= -->
+
+<script>
+
+    if (localStorage.getItem("darkMode") === "false") {
+        document.body.classList.add("light-theme");
+    }
+
+</script>
+
+
+<div class="app">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                R
+            </div>
+
+            <h2>InsightRAG</h2>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a class="nav-item"
+               href="dashboard.html">
+                ⌂ <span>Dashboard</span>
+            </a>
+
+            <a class="nav-item"
+               href="documents.html">
+                ▣ <span>Documents</span>
+            </a>
+
+            <a class="nav-item"
+               href="chat.html">
+                ○ <span>Chat</span>
+            </a>
+
+            <a class="nav-item"
+               href="history.html">
+                ◷ <span>History</span>
+            </a>
+
+            <a class="nav-item"
+               href="analytical.html">
+                ◇ <span>Analytical</span>
+            </a>
+
+            <a class="nav-item active"
+               href="profile.html">
+                ● <span>Profile</span>
+            </a>
+
+            <a class="nav-item"
+               href="settings.html">
+                ⚙ <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR PROFILE -->
+
+        <div class="profile">
+
+            <div class="profile-icon"
+                 id="sideAvatar">
+
+                V
+
+            </div>
+
+            <div>
+
+                <strong id="sideName">
+                    Vijay
+                </strong>
+
+                <small id="sideEmail">
+                    vijay@insightrag.ai
+                </small>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content profile-page">
+
+
+        <h1>
+            Profile
+        </h1>
+
+        <p style="color:#8d97a8; margin-top:8px;">
+            Manage your account and view your InsightRAG activity.
+        </p>
+
+
+        <!-- ================= PROFILE HERO ================= -->
+
+        <div class="profile-hero">
+
+
+            <!-- PHOTO -->
+
+            <div class="profile-photo-area">
+
+                <div class="big-avatar"
+                     id="avatar">
+
+                    V
+
+                </div>
+
+
+                <input
+                    type="file"
+                    id="profilePhotoInput"
+                    accept="image/*"
+                    style="display:none;"
+                >
+
+
+                <button
+                    type="button"
+                    class="change-photo-btn"
+                    onclick="document.getElementById('profilePhotoInput').click();"
+                >
+                    📷 Change Picture
+                </button>
+
+
+                <button
+                    type="button"
+                    class="remove-photo-btn"
+                    onclick="removeProfilePhoto();"
+                >
+                    Remove picture
+                </button>
+
+            </div>
+
+
+            <!-- USER INFO -->
+
+            <div class="profile-main-info">
+
+                <h2 id="displayName">
+                    Vijay
+                </h2>
+
+                <p id="displayEmail">
+                    vijay@insightrag.ai
+                </p>
+
+                <span class="account-badge">
+                    ● Active Account
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= PROFILE GRID ================= -->
+
+        <div class="profile-grid">
+
+
+            <!-- PERSONAL INFORMATION -->
+
+            <div class="profile-card">
+
+                <h2>
+                    Personal Information
+                </h2>
+
+                <p>
+                    Update your account information.
+                </p>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="profileName"
+                        value="Vijay"
+                    >
+
+                </div>
+
+
+                <div class="profile-field">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="profileEmail"
+                        value="vijay@insightrag.ai"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="upload-btn"
+                    style="margin-top:22px;"
+                    onclick="saveProfile()"
+                >
+
+                    Save Changes
+
+                </button>
+
+
+                <div
+                    id="profileMessage"
+                    class="profile-message">
+                </div>
+
+            </div>
+
+
+            <!-- ACCOUNT ACTIVITY -->
+
+            <div class="profile-card">
+
+                <h2>
+                    Account Activity
+                </h2>
+
+                <p>
+                    Your current InsightRAG usage.
+                </p>
+
+
+                <div class="account-stats">
+
+
+                    <div class="account-stat">
+
+                        <span>
+                            Documents
+                        </span>
+
+                        <strong id="documentCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="account-stat">
+
+                        <span>
+                            Questions
+                        </span>
+
+                        <strong id="questionCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="account-stat">
+
+                        <span>
+                            Answers
+                        </span>
+
+                        <strong id="answerCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="account-stat">
+
+                        <span>
+                            Avg. Response
+                        </span>
+
+                        <strong id="responseTime">
+                            0ms
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   USER DATA
+========================================== */
+
+const savedName =
+    localStorage.getItem("userName")
+    || "Vijay";
+
+
+const savedEmail =
+    localStorage.getItem("userEmail")
+    || "vijay@insightrag.ai";
+
+
+document.getElementById("profileName").value =
+    savedName;
+
+
+document.getElementById("profileEmail").value =
+    savedEmail;
+
+
+document.getElementById("displayName").innerText =
+    savedName;
+
+
+document.getElementById("displayEmail").innerText =
+    savedEmail;
+
+
+document.getElementById("sideName").innerText =
+    savedName;
+
+
+document.getElementById("sideEmail").innerText =
+    savedEmail;
+
+
+/* ==========================================
+   PROFILE PICTURE
+========================================== */
+
+const savedProfilePhoto =
+    localStorage.getItem("profilePhoto");
+
+
+function showProfilePhoto(photo) {
+
+    const avatar =
+        document.getElementById("avatar");
+
+    const sideAvatar =
+        document.getElementById("sideAvatar");
+
+
+    if (photo) {
+
+        avatar.innerHTML =
+            `<img src="${photo}" alt="Profile Picture">`;
+
+        sideAvatar.innerHTML =
+            `<img src="${photo}" alt="Profile Picture">`;
+
+    } else {
+
+        const firstLetter =
+            savedName.charAt(0).toUpperCase();
+
+        avatar.innerText =
+            firstLetter;
+
+        sideAvatar.innerText =
+            firstLetter;
+
+    }
+
+}
+
+
+showProfilePhoto(savedProfilePhoto);
+
+
+/* ==========================================
+   CHANGE PROFILE PICTURE
+========================================== */
+
+document.getElementById(
+    "profilePhotoInput"
+).addEventListener(
+    "change",
+    function(event) {
+
+        const file =
+            event.target.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        if (!file.type.startsWith("image/")) {
+
+            alert("Please select an image file.");
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function(e) {
+
+            const imageData =
+                e.target.result;
+
+
+            localStorage.setItem(
+                "profilePhoto",
+                imageData
+            );
+
+
+            showProfilePhoto(imageData);
+
+
+            document.getElementById(
+                "profileMessage"
+            ).innerText =
+                "Profile picture updated successfully!";
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* ==========================================
+   REMOVE PROFILE PICTURE
+========================================== */
+
+function removeProfilePhoto() {
+
+    localStorage.removeItem(
+        "profilePhoto"
+    );
+
+
+    showProfilePhoto(null);
+
+
+    document.getElementById(
+        "profileMessage"
+    ).innerText =
+        "Profile picture removed.";
+
+}
+
+
+/* ==========================================
+   ACTIVITY DATA
+========================================== */
+
+const analyticsData =
+    JSON.parse(
+        localStorage.getItem(
+            "analyticsData"
+        ) || "[]"
+    );
+
+
+const documents =
+    JSON.parse(
+        localStorage.getItem(
+            "uploadedDocuments"
+        ) || "[]"
+    );
+
+
+/* Documents */
+
+document.getElementById(
+    "documentCount"
+).innerText =
+    documents.length;
+
+
+/* Questions */
+
+document.getElementById(
+    "questionCount"
+).innerText =
+    analyticsData.length;
+
+
+/* Successful answers */
+
+const successfulAnswers =
+    analyticsData.filter(
+        item =>
+            item.successful === true ||
+            item.success === true
+    );
+
+
+document.getElementById(
+    "answerCount"
+).innerText =
+    successfulAnswers.length;
+
+
+/* Average response */
+
+if (analyticsData.length > 0) {
+
+    const totalTime =
+        analyticsData.reduce(
+            (total, item) =>
+                total +
+                Number(item.responseTime || 0),
+            0
+        );
+
+
+    const average =
+        Math.round(
+            totalTime /
+            analyticsData.length
+        );
+
+
+    document.getElementById(
+        "responseTime"
+    ).innerText =
+        average + "ms";
+
+}
+
+
+/* ==========================================
+   SAVE PROFILE
+========================================== */
+
+function saveProfile() {
+
+    const name =
+        document.getElementById(
+            "profileName"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "profileEmail"
+        ).value.trim();
+
+
+    if (!name || !email) {
+
+        document.getElementById(
+            "profileMessage"
+        ).innerText =
+            "Please fill all fields.";
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "userName",
+        name
+    );
+
+
+    localStorage.setItem(
+        "userEmail",
+        email
+    );
+
+
+    document.getElementById(
+        "displayName"
+    ).innerText =
+        name;
+
+
+    document.getElementById(
+        "displayEmail"
+    ).innerText =
+        email;
+
+
+    document.getElementById(
+        "sideName"
+    ).innerText =
+        name;
+
+
+    document.getElementById(
+        "sideEmail"
+    ).innerText =
+        email;
+
+
+    /*
+       If there is no photo,
+       update the initial letter.
+    */
+
+    if (!localStorage.getItem("profilePhoto")) {
+
+        document.getElementById(
+            "avatar"
+        ).innerText =
+            name.charAt(0).toUpperCase();
+
+
+        document.getElementById(
+            "sideAvatar"
+        ).innerText =
+            name.charAt(0).toUpperCase();
+
+    }
+
+
+    document.getElementById(
+        "profileMessage"
+    ).innerText =
+        "Profile updated successfully!";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Documents - InsightRAG</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">R</div>
+            <h2>InsightRAG</h2>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a class="nav-item" href="dashboard.html">
+                ⌂ <span>Dashboard</span>
+            </a>
+
+            <a class="nav-item active" href="documents.html">
+                ▣ <span>Documents</span>
+            </a>
+
+            <a class="nav-item" href="chat.html">
+                ○ <span>Chat</span>
+            </a>
+
+            <a class="nav-item" href="history.html">
+                ◷ <span>History</span>
+            </a>
+
+            <a class="nav-item" href="analytical.html">
+                ◇ <span>Analytical</span>
+            </a>
+
+            <a class="nav-item" href="profile.html">
+                ● <span>Profile</span>
+            </a>
+
+            <a class="nav-item" href="settings.html">
+                ⚙ <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="profile">
+            <div class="profile-icon">V</div>
+
+            <div>
+                <strong>Vijay</strong>
+                <small>vijay@insightrag.ai</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <h1>Documents</h1>
+
+        <p style="color:#8d97a8; margin-top:8px;">
+            Manage your uploaded documents.
+        </p>
+
+
+        <!-- UPLOAD BUTTON -->
+        <div style="margin-top:25px;">
+
+            <button
+                class="upload-btn"
+                onclick="document.getElementById('pdfFile').click()"
+            >
+                + &nbsp; Upload Document
+            </button>
+
+            <input
+                type="file"
+                id="pdfFile"
+                accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,application/pdf,text/plain"
+                multiple
+                style="display:none;"
+            >
+
+        </div>
+
+
+        <!-- DOCUMENT LIBRARY -->
+        <div class="documents-card" style="margin-top:30px;">
+
+            <div class="documents-header">
+                <h2>Document Library</h2>
+            </div>
+
+            <div id="documentLibrary">
+
+                <div class="document-row">
+
+                    <div class="file-icon pdf">
+                        DOC
+                    </div>
+
+                    <div class="document-info">
+                        <strong>No documents uploaded yet</strong>
+                        <span>Upload a PDF, PPTX, DOCX or TXT file</span>
+                    </div>
+
+                    <span class="status ready">
+                        Ready
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- INDEXED DB -->
+<script>
+
+const dbRequest =
+    indexedDB.open("InsightRAGFiles", 1);
+
+
+dbRequest.onupgradeneeded = function(event) {
+
+    const db = event.target.result;
+
+    if (!db.objectStoreNames.contains("files")) {
+
+        db.createObjectStore("files", {
+            keyPath: "id"
+        });
+
+    }
+
+};
+
+</script>
+
+
+<!-- LOAD DOCUMENT LIBRARY -->
+<script>
+
+function loadDocuments() {
+
+    const documents =
+        JSON.parse(
+            localStorage.getItem("uploadedDocuments") || "[]"
+        );
+
+    const library =
+        document.getElementById("documentLibrary");
+
+
+    console.log("Documents in Library:", documents);
+
+
+    if (documents.length === 0) {
+
+        library.innerHTML = `
+
+            <div class="document-row">
+
+                <div class="file-icon pdf">
+                    DOC
+                </div>
+
+                <div class="document-info">
+
+                    <strong>
+                        No documents uploaded yet
+                    </strong>
+
+                    <span>
+                        Upload a PDF, PPTX, DOCX or TXT file
+                    </span>
+
+                </div>
+
+                <span class="status ready">
+                    Ready
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    library.innerHTML = documents.map(doc => {
+
+        return `
+
+            <div
+                class="document-row"
+                onclick="openDocument('${doc.id}')"
+                style="
+                    cursor:pointer;
+                    margin-bottom:12px;
+                "
+            >
+
+                <div class="file-icon pdf">
+                    ${doc.type || "DOC"}
+                </div>
+
+
+                <div class="document-info">
+
+                    <strong>
+                        ${doc.name}
+                    </strong>
+
+                    <span>
+                        ${doc.type || "Document"}
+                    </span>
+
+                </div>
+
+
+                <span class="status ready">
+                    Ready
+                </span>
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+loadDocuments();
+
+</script>
+
+
+<!-- OPEN DOCUMENT -->
+<script>
+
+function openDocument(fileId) {
+
+    const request =
+        indexedDB.open("InsightRAGFiles", 1);
+
+
+    request.onsuccess = function(event) {
+
+        const db =
+            event.target.result;
+
+
+        if (!db.objectStoreNames.contains("files")) {
+
+            alert("Document storage not found.");
+            return;
+
+        }
+
+
+        const transaction =
+            db.transaction("files", "readonly");
+
+
+        const store =
+            transaction.objectStore("files");
+
+
+        const getRequest =
+            store.get(fileId);
+
+
+        getRequest.onsuccess = function() {
+
+            const data =
+                getRequest.result;
+
+
+            if (!data || !data.file) {
+
+                alert(
+                    "File not found. Please upload this document again."
+                );
+
+                return;
+
+            }
+
+
+            const url =
+                URL.createObjectURL(data.file);
+
+
+            window.open(url, "_blank");
+
+        };
+
+    };
+
+
+    request.onerror = function() {
+
+        alert(
+            "Could not access document storage."
+        );
+
+    };
+
+}
+
+</script>
+
+
+<!-- MAIN SCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
